@@ -14,7 +14,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Locomotif\\Shop\\OrdersServiceProvider"
+                "Locomotif\\Shop\\ShopServiceProvider"
             ]
         }
     },
