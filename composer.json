@@ -1,0 +1,26 @@
+{
+    "name": "locomotif/orders",
+    "description": "Shop module for locomotif CMS",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Popa",
+            "email": "p.alexandruadrian@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Locomotif\\Shop\\OrdersServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+       "psr-4": {
+           "Locomotif\\Shop\\": "src/"
+        }
+    }
+}
