@@ -1,2 +1,2 @@
-# locomotif-sliders
-Sliders module for locomotif CMS
+# locomotif-shop
+Boilerplate shop module for Locomotif CMS. 
