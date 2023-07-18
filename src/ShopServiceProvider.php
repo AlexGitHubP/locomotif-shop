@@ -4,7 +4,7 @@ namespace Locomotif\Shop;
 
 use Illuminate\Support\ServiceProvider;
 
-class OrdersServiceProvider extends ServiceProvider
+class ShopServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -24,12 +24,12 @@ class OrdersServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/Routes/routes.php');
-        $this->loadViewsFrom(__DIR__.'/views', 'orders');
+        $this->loadViewsFrom(__DIR__.'/views', 'shop');
         
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
         $this->publishes([
-            __DIR__.'/views' => resource_path('views/locomotif/orders'),
+            __DIR__.'/views' => resource_path('views/locomotif/shop'),
         ]);
         
     }
