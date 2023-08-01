@@ -19,9 +19,10 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('provider_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->string('transaction_identifier', 255);
-            $table->text('comments')->nullable();
-            $table->enum('type', ['outgoing', 'incoming', 'refund']);
-            $table->enum('status', ['hidden', 'published']);
+            $table->text('comments', 255)->nullable();
+            $table->enum('type', ['payment', 'invoice', 'cashOnDelivery', 'moneyTransfer']);
+            $table->enum('status', ['transactionRecieved', 'paymentAwaitAdditionalInfos', 'paymentConfirmed', 'paymentCollected', 'paymentHalfConfirmed']);
+            $table->tinyInteger('is_default');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

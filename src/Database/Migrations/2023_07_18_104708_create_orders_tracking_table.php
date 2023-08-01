@@ -15,9 +15,10 @@ class CreateOrdersTrackingTable extends Migration
     {
         Schema::create('orders_tracking', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id')->index();
             $table->string('delay_time_days', 255);
-            $table->text('comments', 255);
-            $table->enum('status', ['placata-de-la-sediu', 'preluata-de-curier', 'in-drum-spre-client', 'livrata', 'in-intarziere']);
+            $table->text('comments', 255)->nullable();
+            $table->enum('status', ['sentToShop', 'inTransition-sentToCarrier', 'inTransition-pickedUpByCarrier', 'inTransition-sentFromCarrier', 'delivered', 'canceled', 'delayed', 'contested']);
             $table->timestamps();
         });
     }

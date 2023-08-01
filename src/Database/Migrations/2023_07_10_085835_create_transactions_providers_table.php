@@ -16,9 +16,13 @@ class CreateTransactionsProvidersTable extends Migration
         Schema::create('transactions_providers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->text('description', 255);
+            $table->string('IBAN', 255)->nullable();
+            $table->string('bank_name', 255)->nullable();
+            $table->text('description', 255)->nullable();
+            $table->enum('type',   ['online', 'offline']);
             $table->enum('status', ['hidden', 'published']);
-            $table->string('token', 255);
+            $table->string('token', 255)->nullable();
+            $table->integer('ordering')->length(10)->unsigned()->nullable();
             $table->timestamps();
         });
     }

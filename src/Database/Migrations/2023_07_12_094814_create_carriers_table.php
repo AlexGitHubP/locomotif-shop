@@ -22,6 +22,7 @@ class CreateCarriersTable extends Migration
             $table->string('site_link', 255);
             $table->string('logo', 255);
             $table->string('token', 255);
+            $table->integer('ordering')->length(10)->unsigned()->nullable();
             $table->enum('status', ['hidden', 'published']);
             $table->timestamps();
         });
