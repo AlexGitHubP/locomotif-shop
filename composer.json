@@ -10,7 +10,6 @@
             "email": "p.alexandruadrian@yahoo.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "extra": {
         "laravel": {
