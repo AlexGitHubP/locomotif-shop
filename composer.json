@@ -1,8 +1,9 @@
 {
-    "name": "locomotif/shops",
+    "name": "locomotif/shop",
     "description": "Shop module for locomotif CMS",
-    "type": "library",
+    "type": "module",
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Alex Popa",
