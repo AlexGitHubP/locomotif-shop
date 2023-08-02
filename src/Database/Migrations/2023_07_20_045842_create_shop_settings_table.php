@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('shop_settings', function (Blueprint $table) {
-            $table->bigIncrements();
+            $table->id();
             $table->string('tva', 255);
             $table->enum('tax_type', ['percent', 'fixed']);
             $table->boolean('maintenence');
