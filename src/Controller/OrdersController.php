@@ -19,7 +19,13 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        $items = Orders::with('user', 'user.account')
+                        ->with('currentStatus')
+                        ->with('carrier')
+                        ->with('transactionProvider')
+                        ->get();
+
+        return view('orders::list')->with('items', $items);
     }
 
     /**
@@ -60,9 +66,18 @@ class OrdersController extends Controller
      * @param  \App\Models\Orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function edit(Orders $orders)
+    public function edit(Orders $order)
     {
-        //
+        $currentOrder = Orders::find($order->id)
+                               ->with('user', 'user.account')
+                               ->with('currentStatus')
+                               ->with('carrier')
+                               ->with('trackingHistory')
+                               ->with('transactionProvider', 'transactionProvider.transactions')
+                               ->first();
+                            // dd($currentOrder);
+        return view('orders::edit')
+                ->with('item', $currentOrder);
     }
 
     /**

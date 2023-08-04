@@ -24,7 +24,7 @@ class ShopServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__.'/Routes/routes.php');
-        $this->loadViewsFrom(__DIR__.'/views', 'shop');
+        $this->loadViewsFrom(__DIR__.'/views/orders', 'orders');
         
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
