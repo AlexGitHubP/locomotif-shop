@@ -19,9 +19,6 @@ class CreateStripeApiResponseTable extends Migration
             $table->string('type', 255);
             $table->string('customerMessage', 255);
             $table->timestamps();
-
-            // Define primary key
-            $table->primary('id');
         });
     }
 
