@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('stripe_api_response', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('code');
             $table->string('type');
             $table->string('customerMessage');
+            $table->json('fullResponse');
             $table->timestamps();
         });
     }
