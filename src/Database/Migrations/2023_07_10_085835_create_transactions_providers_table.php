@@ -21,6 +21,7 @@ class CreateTransactionsProvidersTable extends Migration
             $table->text('description', 255)->nullable();
             $table->enum('type',   ['online', 'offline']);
             $table->enum('status', ['hidden', 'published']);
+            $table->tinyInteger('is_default')->length(1);
             $table->string('token', 255)->nullable();
             $table->integer('ordering')->length(10)->unsigned()->nullable();
             $table->timestamps();
