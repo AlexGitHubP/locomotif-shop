@@ -18,6 +18,14 @@
 				</a>
 			</li>
             <li>
+				<a href="" data-target="products">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
+					  </svg>											
+					Produse comandate
+				</a>
+			</li>
+            <li>
 				<a href="" data-target="user">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
@@ -31,6 +39,14 @@
 						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
 					  </svg>											
 					Tranzacții/plăți
+				</a>
+			</li>
+            <li>
+				<a href="" data-target="invoice">
+					<svg id="Settings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<path id="Settings-2" data-name="Settings" d="M2.309,6.772A2.1,2.1,0,0,0,3.125,9.7l.174.1c0,.069,0,.139-.005.205s0,.136.005.205l-.174.1a2.1,2.1,0,0,0-.816,2.928l.984,1.616a2.132,2.132,0,0,0,2.848.732l.158-.087c.2.128.4.247.612.357v.03A2.114,2.114,0,0,0,9.016,18h1.968a2.114,2.114,0,0,0,2.1-2.124v-.03c.21-.11.415-.229.612-.357l.158.087a2.132,2.132,0,0,0,2.848-.732l.984-1.616a2.1,2.1,0,0,0-.816-2.928l-.174-.1c0-.069,0-.139.005-.205s0-.136-.005-.205l.174-.1a2.1,2.1,0,0,0,.816-2.928l-.984-1.616a2.133,2.133,0,0,0-2.848-.732l-.158.087c-.2-.128-.4-.247-.612-.357v-.03A2.114,2.114,0,0,0,10.984,2H9.016a2.114,2.114,0,0,0-2.1,2.124v.03c-.21.11-.415.229-.612.357l-.158-.087a2.133,2.133,0,0,0-2.848.732Zm4.155-.144L5.29,5.984a.359.359,0,0,0-.48.1L3.826,7.7a.322.322,0,0,0,.151.443l1.241.679a4.8,4.8,0,0,0,0,2.363l-1.241.679a.322.322,0,0,0-.151.443l.984,1.616a.359.359,0,0,0,.48.1l1.174-.644a4.945,4.945,0,0,0,2.224,1.294v1.21a.337.337,0,0,0,.328.346h1.968a.337.337,0,0,0,.328-.346v-1.21a4.945,4.945,0,0,0,2.224-1.294l1.174.644a.359.359,0,0,0,.48-.1l.984-1.616a.322.322,0,0,0-.151-.443l-1.241-.679a4.8,4.8,0,0,0,0-2.363l1.241-.679a.322.322,0,0,0,.151-.443L15.19,6.081a.359.359,0,0,0-.48-.1l-1.174.644a4.935,4.935,0,0,0-2.224-1.293V4.124a.337.337,0,0,0-.328-.346H9.016a.337.337,0,0,0-.328.346V5.334A4.936,4.936,0,0,0,6.464,6.628ZM10,12.667A2.667,2.667,0,1,0,7.333,10,2.665,2.665,0,0,0,10,12.667ZM11,10a1,1,0,1,1-1-1A1,1,0,0,1,11,10Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
+					  </svg>					  
+					Factura
 				</a>
 			</li>
             <li>
@@ -113,6 +129,13 @@
                                     <input type="text" name="total" id='total' value="{{$item->total}}" readonly>
                                 </div>
                             </div>
+
+							<div class='flex-inputs flexInLine'>
+                                <div class="input-element">
+                                    <label for="tva">Adresă livrare</label>
+                                    <input type="text" name="tva" id='tva' value="Str. {{$item->deliveryAddress->street}}, nr. {{$item->deliveryAddress->nr}}, Oraș {{$item->deliveryAddress->city}}, Județ {{$item->deliveryAddress->county}}" readonly>
+                                </div>
+                            </div>
                             {{-- <input class='general-btn' type="submit" value="Update"> --}}
                         </form>	
                     </div>
@@ -123,7 +146,14 @@
                         @endforeach
                     </div>
                 </div>
-			</div>		
+			</div>	
+            <div class="tab-pane" id="products">
+				<div class='flex-inputs flexInLine'>
+                    @foreach ($item->orderItems as $product )
+                    <p>Produs: {{$product->name}} - Cantitate: {{$product->quantity}}</p>
+                    @endforeach
+                </div>
+			</div>	
             <div class="tab-pane" id="user">
 				<div class='flex-inputs flexInLine'>
                     <div class="input-element">
@@ -143,6 +173,28 @@
                         <input type="text" name="reference" id='reference' value="{{$item->user->account->phone}}" readonly>
                     </div>
                 </div>
+
+				@if ($item->deliveryAddress->is_company == 1)
+				<div class='flex-inputs flexInLine'>
+                    <div class="input-element">
+                        <label for="name">Firma</label>
+                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_name}}" readonly>
+                    </div>
+                    <div class="input-element">
+                        <label for="name">Tip firma</label>
+						<input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_type}}" readonly>
+                    </div>
+                    <div class="input-element">
+                        <label for="name">CUI</label>
+                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_vat_type}}{{$item->deliveryAddress->company_cui}}" readonly>
+                    </div>
+                    <div class="input-element">
+                        <label for="name">Serie</label>
+                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_series}}" readonly>
+                    </div>
+                </div>
+				@endif
+				
 			</div>
             <div class="tab-pane" id="pay">
 				<div class="perfect-flex-hold">
@@ -154,18 +206,25 @@
                             </div>
                             <div class="input-element">
                                 <label for="name">Id tranzacție</label>
-                                <input type="text" name="reference" id='reference' value="{{$item->transactionProvider->transactions[0]->transaction_identifier}}" readonly>
+                                <input type="text" name="reference" id='reference' value="{{$item->transactions->first()->transaction_identifier}}" readonly>
                             </div>
                         </div>
                     </div>
                     <div class='perfect-right'>
                         <h3>Istoric Tranzacții</h3>
-                        @foreach ($item->transactionProvider->transactions as $transactionItem )
+                        @foreach ($item->transactions as $transactionItem )
                             <p>{{$transactionItem->created_at}} - {{$transactionItem->status}}</p>
                         @endforeach
                     </div>
                 </div>
 			</div>
+            <div class="tab-pane" id="invoice">
+				<div class='flex-inputs flexInLine'>
+                    @foreach ($item->orderItems as $product )
+                    <p>Produs: {{$product->name}} - Cantitate: {{$product->quantity}}</p>
+                    @endforeach
+                </div>
+			</div>	
             <div class="tab-pane" id="livrare">
 				<div class='flex-inputs flexInLine'>
                     <div class="input-element">

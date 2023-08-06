@@ -23,8 +23,22 @@ class OrdersController extends Controller
                         ->with('currentStatus')
                         ->with('carrier')
                         ->with('transactionProvider')
+                        ->leftJoinSub(function ($query) {
+                            // Subquery to fetch the latest transaction for each order
+                            $query->from('transactions')
+                                ->selectRaw('id as trID, order_id, provider_id, user_id, transaction_identifier, created_at, status as trStatus, MAX(created_at) as latest_created_at')
+                                ->orderBy('transactions.created_at', 'ASC')
+                                ->groupBy('order_id');
+                        }, 'latest_transaction', function ($join) {
+                            $join->on('orders.id', '=', 'latest_transaction.order_id');
+                        })
+                        ->leftJoin('transactions', function ($join) {
+                            $join->on('orders.id', '=', 'transactions.order_id')
+                                ->on('transactions.created_at', '=', 'latest_transaction.latest_created_at');
+                        })
+                        ->select('orders.*', 'transactions.status as transactionStatus')
+                        ->orderBy('orders.created_at', 'DESC')
                         ->get();
-
         return view('orders::list')->with('items', $items);
     }
 
@@ -68,14 +82,16 @@ class OrdersController extends Controller
      */
     public function edit(Orders $order)
     {
-        $currentOrder = Orders::find($order->id)
+        $currentOrder = Orders::with('orderItems')
                                ->with('user', 'user.account')
                                ->with('currentStatus')
+                               ->with('deliveryAddress')
                                ->with('carrier')
                                ->with('trackingHistory')
-                               ->with('transactionProvider', 'transactionProvider.transactions')
-                               ->first();
-                            // dd($currentOrder);
+                               ->with('transactionProvider')
+                               ->with('transactions')
+                               ->find($order->id);
+                               
         return view('orders::edit')
                 ->with('item', $currentOrder);
     }
