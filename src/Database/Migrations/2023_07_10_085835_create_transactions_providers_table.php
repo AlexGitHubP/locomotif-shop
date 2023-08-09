@@ -19,7 +19,7 @@ class CreateTransactionsProvidersTable extends Migration
             $table->string('IBAN', 255)->nullable();
             $table->string('bank_name', 255)->nullable();
             $table->text('description', 255)->nullable();
-            $table->enum('type',   ['online', 'offline']);
+            $table->enum('type',   ['online', 'ramburs', 'moneyOrderFull', 'moneyOrderAdvance']);
             $table->enum('status', ['hidden', 'published']);
             $table->tinyInteger('is_default')->length(1);
             $table->string('token', 255)->nullable();
