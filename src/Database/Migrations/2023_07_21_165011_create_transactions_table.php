@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->string('transaction_identifier', 255);
             $table->text('comments', 255)->nullable();
             $table->enum('type', ['payment', 'invoice', 'cashOnDelivery', 'moneyTransfer']);
-            $table->enum('status', ['transactionRecieved','paymentAwaitAdditionalInfos','paymentConfirmed','paymentCollected','paymentHalfConfirmed','processing','requiresPaymentMethod','paymentFailed']);
+            $table->enum('status', ['transactionRecieved', 'transactionFirstHalfRecieved', 'transactionSecondHalfRecieved', 'paymentAwaitAdditionalInfos','paymentConfirmed','paymentCollected','paymentFirstHalfConfirmed', 'paymentSecondHalfConfirmed', 'processing','requiresPaymentMethod','paymentFailed']);
             $table->tinyInteger('is_default');
             $table->timestamps();
 
