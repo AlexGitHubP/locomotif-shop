@@ -15,11 +15,10 @@ class CreateOrdersInvoicesTable extends Migration
     {
         Schema::create('orders_invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_reference');
-            $table->enum('type', ['proforma', 'fiscala']);
-            $table->decimal('total', 10, 2)->default(0);
-            $table->string('currency');
-            $table->enum('status', ['fgo_inserted', 'fgo_sent', 'fgo_rejected', 'fgo_error']);
+            $table->string('invoice_number', 255);
+            $table->string('invoice_series', 255);
+            $table->string('invoice_link', 255);
+            $table->enum('status', ['fgo_sent','fgo_sentHalf','fgo_invoiced','fgo_invoicedHalf','fgo_storno','fgo_error']);
             $table->timestamps();
         });
     }
