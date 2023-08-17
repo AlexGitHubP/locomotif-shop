@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id')->index();
             $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('designer_id')->index();
             $table->string('name', 255);
             $table->integer('quantity'); 
             $table->decimal('subtotal', 10, 2)->default(0);
@@ -25,6 +26,7 @@ return new class extends Migration
 
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('designer_id')->references('id')->on('accounts');
 
         });
     }
