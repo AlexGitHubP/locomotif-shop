@@ -17,12 +17,21 @@ return new class extends Migration
             $table->id();
             $table->string('tva', 255);
             $table->enum('tax_type', ['percent', 'fixed']);
+            $table->decimal('shop_fee', 10, 2)->default(0);
+            $table->enum('shop_fee_type', ['percent', 'fixed']);
             $table->boolean('maintenence');
             $table->string('succes_page', 255);
             $table->string('brand_logo', 255);
             $table->string('brand_name', 255);
             $table->string('brand_contact', 255);
-            $table->string('brand_email', 255);
+            $table->string('brand_email',  255);
+            $table->string('company_name', 255);
+            $table->string('company_iban', 255);
+            $table->string('company_bank', 255);
+            $table->string('company_bank_swift', 255);
+            $table->string('company_cui',  255);
+            $table->string('company_address',  255);
+            $table->string('company_registru_comert', 255);
             $table->timestamps();
 
         });
