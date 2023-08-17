@@ -22,7 +22,8 @@ return new class extends Migration
             $table->enum('invoice_status', ['notUploaded', 'uploaded', 'inProcesare', 'inregistrata', 'incasata']);
             $table->string('invoice', 255)->nullable();
             $table->unsignedBigInteger('nr_of_notice_sent')->default(0);
-            $table->integer('month');
+            $table->string('month', 255);
+            $table->string('year', 255);
             $table->timestamps();
 
             $table->foreign('designer_id')->references('id')->on('accounts');
