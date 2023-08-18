@@ -8,7 +8,8 @@ use Illuminate\Routing\Controller;
 
 use Locomotif\Media\Models\Media;
 use Locomotif\Shop\Models\Orders;
-
+use Locomotif\Shop\Models\OrdersTracking;
+use Locomotif\Shop\Models\FgoApi;
 
 class OrdersController extends Controller
 {
@@ -23,6 +24,7 @@ class OrdersController extends Controller
                         ->with('currentStatus')
                         ->with('carrier')
                         ->with('transactionProvider')
+                        ->with('invoice')
                         ->leftJoinSub(function ($query) {
                             // Subquery to fetch the latest transaction for each order
                             $query->from('transactions')
@@ -39,6 +41,15 @@ class OrdersController extends Controller
                         ->select('orders.*', 'transactions.status as transactionStatus')
                         ->orderBy('orders.created_at', 'DESC')
                         ->get();
+                        
+        $items->map(function($item){
+            if(!isset($item->currentStatus->status)){
+                dd('o comanda nu are setat tracking in orders_tracking');
+            }
+            $item->currentStatus->statusNice = mapStatus($item->currentStatus->status);
+            $item->transactionStatusNice     = mapStatus($item->transactionStatus);
+        });
+        
         return view('orders::list')->with('items', $items);
     }
 
@@ -50,6 +61,18 @@ class OrdersController extends Controller
     public function create()
     {
         //
+    }
+
+    public function updateTrackingStatus(Request $request){
+        
+        $orderTracking = new OrdersTracking();
+        $orderTracking->order_id        = $request->order;
+        $orderTracking->delay_time_days = 0;
+        $orderTracking->comments        = $request->comments;
+        $orderTracking->status          = $request->orders_tracking;
+        $orderTracking->save();
+
+        return redirect('admin/orders/'.$request->order.'/edit');
     }
 
     /**
@@ -90,10 +113,23 @@ class OrdersController extends Controller
                                ->with('trackingHistory')
                                ->with('transactionProvider')
                                ->with('transactions')
+                               ->with('invoice')
                                ->find($order->id);
                                
+        $currentOrder->trackingHistory->map(function($history){
+            $history->status = mapStatus($history->status);
+        });
+        $currentOrder->transactions->map(function($transaction){
+            $transaction->status = mapStatus($transaction->status); 
+        });
+        $currentOrder->invoice['originalStatus'] = $currentOrder->invoice['status'];
+        $currentOrder->invoice['status'] = mapStatus($currentOrder->invoice['status']);        
+        
+        $statusList = $currentOrder->statusList();
+        
         return view('orders::edit')
-                ->with('item', $currentOrder);
+                ->with('item', $currentOrder)
+                ->with(compact('statusList'));
     }
 
     /**
@@ -117,5 +153,69 @@ class OrdersController extends Controller
     public function destroy(Orders $orders)
     {
         //
+    }
+
+    public function markFgoInvoiced(Request $request){
+        $orderDetails = $request->all();
+        
+        $orderDetailsFgo = [
+            'currency'             => 'RON',
+            'series'               => $orderDetails['invoice_series'],
+            'number'               => $orderDetails['invoice_number'],
+            'clientCompany'        => $orderDetails['invoice_number']
+            
+            // 'shopOrderReference'   => $orderReference,
+        ];
+        
+        $fgoInstance = new FgoApi($orderDetailsFgo);
+        $response    = $fgoInstance->getStatus();
+        
+        if($response->Success){
+            $paid = ($response->Factura->Valoare===$response->Factura->ValoareAchitata) ? true : false;
+            if(!$paid){
+                $invoiceResponse = $fgoInstance->setOrderAsInvoiced($response->Factura->Valoare, 'Banca');
+            }else{
+                dd('Factura este deja incasata');
+            }
+            
+        }else{
+            dd($response->Message);
+        }
+        if($invoiceResponse->Success){
+            $order = Orders::with('paymentStatus')->find($orderDetails['order_id']);    
+                     Orders::markInvoiceAsPaid($orderDetails['invoice_id'], $orderDetails['invoice_status'], $order->paymentStatus);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function buildFinalInvoice(Request $request){
+        $orderDetails = $request->all();
+
+        $orderID = $orderDetails['order_id'];
+        $order = Orders::with('orderItems')
+                        ->with('deliveryAddress')
+                        ->with('paymentStatus')
+                        ->find($orderID);
+        
+        $orderDetailsFgo = Orders::buildFGOOrderDetails($order->deliveryAddress);
+        $storno          = Orders::buildStorno($order);
+        $addCarrierFee = (!empty($order->delivery_fee) && $order->delivery_fee > 0) ? true : false;
+        if($addCarrierFee){
+            $carrierFee = Orders::addCarrierFee($order);
+            $storno     = array_merge($carrierFee, $storno);
+        }
+        
+        $finalItems = array_merge($order->orderItems->toArray(), $storno);
+
+        $fgoInstance    = new FgoApi($orderDetailsFgo);
+
+        $invoice     = $fgoInstance->generateInvoice($finalItems, 'online', 0);
+        $invoiceID   = $fgoInstance->storeInvoice($invoice, 'online');
+        $response    = Orders::updateOrderInvoice($orderID, $invoiceID);
+        
+        $transaction = Orders::addTransaction($order->paymentStatus);
+        dd($invoice, $invoiceID);
     }
 }

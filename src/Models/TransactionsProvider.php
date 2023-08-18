@@ -11,7 +11,7 @@ class TransactionsProvider extends Model{
     protected $table = 'transactions_providers';
 
     public function transactions(){
-        return $this->hasMany(Transactions::class, 'provider_id');
+        return $this->hasMany(Transactions::class, 'order_id');
     }
     
     public function order(){

@@ -18,22 +18,6 @@
 				</a>
 			</li>
             <li>
-				<a href="" data-target="products">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
-					  </svg>											
-					Produse comandate
-				</a>
-			</li>
-            <li>
-				<a href="" data-target="user">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
-					  </svg>											
-					User/Cont
-				</a>
-			</li>
-            <li>
 				<a href="" data-target="pay">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
@@ -89,113 +73,137 @@
 	</div>
 </div><!--details-bar-->
 
-<div class="content-container">
+<div class="content-container orderDetailView">
     <div class="cms-body">
 		<div class="tab-content">
 			<div class="tab-pane active" id="detalii">
 				<div class="perfect-flex-hold">
                     <div class='perfect-left'>
-                        <form method="POST" action='/admin/orders/{{$item->id}}'>
-                            @csrf
-                            @method('PUT')
-                            <div class='flex-inputs flexInLine'>
-                                <div class="input-element">
-                                    <label for="name">Id comandă</label>
-                                    <input type="text" name="reference" id='reference' value="{{$item->reference}}" readonly>
-                                </div>
-        
-                                <div class="input-element">
-                                    <label for="subtotal">Subtotal</label>
-                                    <input type="text" name="subtotal" id='subtotal' value="{{$item->subtotal}}" readonly>
-                                </div>
-                                <div class="input-element">
-                                    <label for="discount">Discount</label>
-                                    <input type="text" name="discount" id='discount' value="{{$item->discount}}" readonly>
-                                </div>        
+                        <h4>Detalii Comandă</h4>
+                        <div class='flex-inputs viewFlex'>
+                            <div class="input-element">
+                                <p>Id comandă: <span>{{$item->reference}}</span></p>
                             </div>
-                            <div class='flex-inputs flexInLine'>
-                                <div class="input-element">
-                                    <label for="tva">TVA</label>
-                                    <input type="text" name="tva" id='tva' value="{{$item->tva}}" readonly>
-                                </div>
-        
-                                <div class="input-element">
-                                    <label for="delivery_fee">Cost livrare</label>
-                                    <input type="text" name="delivery_fee" id='delivery_fee' value="{{$item->delivery_fee}}" readonly>
-                                </div>
-        
-                                <div class="input-element">
-                                    <label for="total">Total</label>
-                                    <input type="text" name="total" id='total' value="{{$item->total}}" readonly>
-                                </div>
+    
+                            <div class="input-element">
+                                <p>Subtotal: <span>{{$item->subtotal}}</span></p>
+                            </div>    
+                            <div class="input-element">
+                                <p>Cost livrare: <span>{{$item->delivery_fee}}</span></p>
+                            </div>        
+                            <div class="input-element">
+                                <p>TVA calculat: <span>{{$item->tva}}</span></p>
+                            </div>    
+                            <div class="input-element">
+                                <p>Total: <span>{{$item->total}}</span></p>
+                            </div>        
+                            
+                            <div class="input-element">
+                                <p>Adresă livrare: <span>Str. {{$item->deliveryAddress->street}}, nr. {{$item->deliveryAddress->nr}}, Oraș {{$item->deliveryAddress->city}}, Județ {{$item->deliveryAddress->county}}</span></p>
                             </div>
 
-							<div class='flex-inputs flexInLine'>
-                                <div class="input-element">
-                                    <label for="tva">Adresă livrare</label>
-                                    <input type="text" name="tva" id='tva' value="Str. {{$item->deliveryAddress->street}}, nr. {{$item->deliveryAddress->nr}}, Oraș {{$item->deliveryAddress->city}}, Județ {{$item->deliveryAddress->county}}" readonly>
+                            <form method="POST" action='/admin/orders/updateStatus'>
+                                <input type="hidden" id='order' name='order' value="{{$item->id}}">
+                                @csrf
+                                @method('POST')
+                                <div class="input-element textarea">
+                                    <label for="comments">Comentarii comanda</label>
+                                    <textarea name="comments" id="comments" value='{{$item->currentStatus->comments}}'>{{$item->currentStatus->comments}}</textarea>
                                 </div>
-                            </div>
-                            {{-- <input class='general-btn' type="submit" value="Update"> --}}
-                        </form>	
+                                <div class="input-element">
+                                    <label for="orders_tracking">Status comandă:</label>
+                                    <select name='orders_tracking' id='orders_tracking' value='xx'>
+                                        @foreach ($statusList as $k => $status)
+                                            <option value="{{array_key_first($status)}}" @if(array_key_first($status) == $item->currentStatus->status) selected @endif >{{$status[array_key_first($status)]}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <input class='general-btn' type="submit" value="Update comandă">
+                            </form>
+                            
+                        </div>
                     </div>
                     <div class='perfect-right'>
-                        <h3>Istoric Comandă</h3>
+                        <h4>Comandat de:</h4>
+                        <div class='flex-inputs viewFlex'>
+                            <div class="input-element">
+                                <p>Nume: <span><a href='/admin/accounts/{{$item->user->account->id}}/edit'> {{$item->user->account->name}} {{$item->user->account->surname}}</a></span></p>
+                            </div>
+    
+                            <div class="input-element">
+                                <p>Email: <span>{{$item->user->account->email}}</span></p>
+                            </div>
+                            <div class="input-element">
+                                <p>Telefon: <span>{{$item->user->account->phone}}</span></p>
+                            </div>        
+                            @if ($item->deliveryAddress->is_company == 1)
+                            <h4 class='inside'>Detalii Firmă</h4>
+                            <div class='flex-inputs viewFlex'>
+                                <div class="input-element">
+                                    <p>Firmă: <span>{{$item->deliveryAddress->company_name}} {{$item->deliveryAddress->company_type}}</span></p>
+                                </div>
+                                <div class="input-element">
+                                    <p>CUI: <span>{{$item->deliveryAddress->company_vat_type}}{{$item->deliveryAddress->company_cui}}</span></p>
+                                </div>
+                                <div class="input-element">
+                                    <p>Serie: <span>{{$item->deliveryAddress->company_series}}</span></p>
+                                </div>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class='perfect-right'>
+                        <h4>Istoric Comandă</h4>
                         @foreach ($item->trackingHistory as $key => $trackingHistory )
                             <p>{{$trackingHistory->created_at}} - <strong>{{$trackingHistory->status}}</strong></p>
                         @endforeach
                     </div>
                 </div>
-			</div>	
-            <div class="tab-pane" id="products">
-				<div class='flex-inputs flexInLine'>
-                    @foreach ($item->orderItems as $product )
-                    <p>Produs: {{$product->name}} - Cantitate: {{$product->quantity}}</p>
-                    @endforeach
-                </div>
-			</div>	
-            <div class="tab-pane" id="user">
-				<div class='flex-inputs flexInLine'>
-                    <div class="input-element">
-                        <label for="name">Nume</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->user->account->name}}" readonly>
-                    </div>
-                    <div class="input-element">
-                        <label for="name">Prenume</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->user->account->surname}}" readonly>
-                    </div>
-                    <div class="input-element">
-                        <label for="name">Email</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->user->account->email}}" readonly>
-                    </div>
-                    <div class="input-element">
-                        <label for="name">Telefon</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->user->account->phone}}" readonly>
-                    </div>
-                </div>
 
-				@if ($item->deliveryAddress->is_company == 1)
-				<div class='flex-inputs flexInLine'>
-                    <div class="input-element">
-                        <label for="name">Firma</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_name}}" readonly>
+                <div class="ordered-items-hold">
+                    <h4>Produse comandate</h4>
+                    <div class='listing-element listing-header'>
+                        <div class='listing-box'>
+                            <p>ID</p>
+                        </div>
+                        <div class='listing-box'>
+                            <p>Nume</p>
+                        </div>
+                        <div class='listing-box'>
+                            <p>Cantitate</p>
+                        </div>
+                        <div class='listing-box'>
+                            <p>Pret produs</p>
+                        </div>
+                        <div class='listing-box'>
+                            <p>Subtotal</p>
+                        </div>
                     </div>
-                    <div class="input-element">
-                        <label for="name">Tip firma</label>
-						<input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_type}}" readonly>
+                    <div class='listing-elements-hold'>
+                        @foreach($item->orderItems as $key => $product)
+                            <div class='listing-element {{ $loop->last ? 'lastElement' : '' }}'>
+                                <div class='listing-box'>
+                                    <p>{{$key+1}}</p>
+                                </div>
+                                <div class='listing-box'>
+                                    <p><a href='/admin/products/{{$product->id}}/edit'>{{ $product->name }}</a></p>
+                                </div>
+                                <div class='listing-box'>
+                                    <p>{{$product->quantity}}</p>
+                                </div>
+                                <div class='listing-box'>
+                                    <p>{{$product->price_per_unit}} RON</p>
+                                </div>
+                                <div class='listing-box'>
+                                    <p>{{$product->subtotal}} RON</p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="input-element">
-                        <label for="name">CUI</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_vat_type}}{{$item->deliveryAddress->company_cui}}" readonly>
-                    </div>
-                    <div class="input-element">
-                        <label for="name">Serie</label>
-                        <input type="text" name="reference" id='reference' value="{{$item->deliveryAddress->company_series}}" readonly>
-                    </div>
-                </div>
-				@endif
-				
-			</div>
+                </div> <!--ordered-items hold-->
+
+			</div>	
+            
             <div class="tab-pane" id="pay">
 				<div class="perfect-flex-hold">
                     <div class='perfect-left'>
@@ -219,10 +227,49 @@
                 </div>
 			</div>
             <div class="tab-pane" id="invoice">
-				<div class='flex-inputs flexInLine'>
-                    @foreach ($item->orderItems as $product )
-                    <p>Produs: {{$product->name}} - Cantitate: {{$product->quantity}}</p>
-                    @endforeach
+                <div class='flex-inputs viewFlex'>
+                    <div class="input-element">
+                        <p>Număr factură: <span>{{$item->invoice->invoice_number}}</p>
+                    </div>
+                    <div class="input-element">
+                        <p>Serie factură: <span>{{$item->invoice->invoice_series}}</p>
+                    </div>
+                    <div class="input-element">
+                        <p>Factura FGO: <span><a href='{{$item->invoice->invoice_link}}' target='_blank'>Vezi aici factura</a></p>
+                    </div>
+                    <div class="input-element">
+                        <p>Status factură: <span>{{$item->invoice->status}}</p>
+                    </div>
+
+                    @if ($item->invoice->originalStatus=='fgo_invoicedHalf')
+                    <form method="POST" action='/admin/orders/buildFinalInvoice'>
+                        <input type="hidden" id='order_id' name='order_id' value="{{$item->id}}">
+                        <input type="hidden" id='invoice_id' name='invoice_id' value="{{$item->invoice->id}}">
+                        <input type="hidden" id='invoice_number' name='invoice_number' value="{{$item->invoice->invoice_number}}">
+                        <input type="hidden" id='invoice_series' name='invoice_series' value="{{$item->invoice->invoice_series}}">
+                        <input type="hidden" id='invoice_company' name='invoice_company' value="{{$item->user->account->name}} {{$item->user->account->surname}}">
+                        @csrf
+                        @method('POST')
+                        <input class='general-btn' type="submit" value="Generează factura fiscală finală">
+                    </form>
+                    @else
+                    <form method="POST" action='/admin/orders/markFgoInvoiced'>
+                        <input type="hidden" id='order_id' name='order_id' value="{{$item->id}}">
+                        <input type="hidden" id='invoice_id' name='invoice_id' value="{{$item->invoice->id}}">
+                        <input type="hidden" id='invoice_number' name='invoice_number' value="{{$item->invoice->invoice_number}}">
+                        <input type="hidden" id='invoice_series' name='invoice_series' value="{{$item->invoice->invoice_series}}">
+                        <input type="hidden" id='invoice_company' name='invoice_company' value="{{$item->user->account->name}} 
+                        {{$item->user->account->surname}}">
+                        <input type="hidden" id='invoice_series' name='invoice_status' value="@php echo ($item->invoice->invoice_series=='PF') ? 'fgo_invoicedHalf' : 'fgo_invoiced'@endphp">
+                        @csrf
+                        @method('POST')
+                        <input class='general-btn' type="submit" value="Setează factura {{$item->invoice->invoice_series}} {{$item->invoice->invoice_number}} ca și încasată">
+                    </form>    
+                    @endif
+
+                    
+                    
+
                 </div>
 			</div>	
             <div class="tab-pane" id="livrare">

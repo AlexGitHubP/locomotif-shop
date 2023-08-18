@@ -76,10 +76,10 @@ class FgoApi extends Model{
         $formattedProducts = array();
         foreach ($products as $key => $product) {
             $formattedProducts = $formattedProducts + array(
-                'Continut['.$key.'][Denumire]'   => $product['name'],
-                'Continut['.$key.'][PretUnitar]' => $product['price'],  
-                'Continut['.$key.'][UM]'         => 'buc',
-                'Continut['.$key.'][NrProduse]'  => $product['amount'],
+                'Continut['.$key.'][Denumire]'   => (isset($product['name'])) ? $product['name'] : $product['name'],
+                'Continut['.$key.'][PretUnitar]' => (isset($product['price'])) ? $product['price'] : $product['price_per_unit'],  
+                'Continut['.$key.'][UM]'         => (isset($product['um'])) ? $product['um'] : 'buc',
+                'Continut['.$key.'][NrProduse]'  => (isset($product['amount'])) ? $product['amount'] : $product['quantity'],
                 'Continut['.$key.'][CotaTVA]'    => '19'
             );
         }
@@ -87,11 +87,11 @@ class FgoApi extends Model{
         return $formattedProducts;
         
     }
-    static function build50AdvanceORder($totalOrder){
+    static function build50AdvanceORder($halfOrderWithoutTVA){
 
         $formattedProducts = array(
             'Continut[0][Denumire]'   => 'Avans comandă 50%',
-            'Continut[0][PretUnitar]' => (int)$totalOrder / 2,  
+            'Continut[0][PretUnitar]' => (string)$halfOrderWithoutTVA,  
             'Continut[0][UM]'         => 'lei',
             'Continut[0][NrProduse]'  => 1,
             'Continut[0][CotaTVA]'    => '19'
@@ -104,7 +104,7 @@ class FgoApi extends Model{
     //$products    - an array of products/or one product
     //$paymentType - ex: `online` is regular invoice, but `moneyOrderAdvance` builds a proform order with 50% of the total order without TVA, ignoring the products
     //$totalOrder  - total order without TVA, used only if paymentType is moneyOrderAdvance
-    public function generateInvoice($products, $paymentType, $totalOrder){
+    public function generateInvoice($products, $paymentType, $halfOrderWithoutTVA){
           
         $endpoint = self::BASE_URL.'publicws/factura/emitere';
         switch ($paymentType) {
@@ -113,7 +113,7 @@ class FgoApi extends Model{
             break;
 
             case 'moneyOrderAdvance':
-                $formattedProducts = self::build50AdvanceORder($totalOrder);  
+                $formattedProducts = self::build50AdvanceORder($halfOrderWithoutTVA);  
             break;
 
             default:
@@ -161,19 +161,18 @@ class FgoApi extends Model{
         
     }
 
-    public function storeInvoice($invoice){
-
+    public function storeInvoice($invoice, $paymentType){
+        $type = ($paymentType=='moneyOrderAdvance') ? 'fgo_sentHalf' : 'fgo_sent';
         $invoiceID = DB::table('orders_invoices')->insertGetId([
             'invoice_number' => $invoice->Numar,
             'invoice_series' => $invoice->Serie,
             'invoice_link'   => $invoice->Link,
-            'status'         => 'fgo_sent',
+            'status'         => $type,
             'created_at'     => $this->getCurrentTime(),
             'updated_at'     => $this->getCurrentTime(),
         ]);
 
         return $invoiceID;
-
     }
 
     public function getStatus(){
@@ -185,7 +184,7 @@ class FgoApi extends Model{
             'Serie'              => $this->series,
             'Numar'              => $this->number,
         );
-
+        
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -197,11 +196,36 @@ class FgoApi extends Model{
         $context  = stream_context_create($options);
         $response = file_get_contents($endpoint, false, $context);
         $response = json_decode($response);
-        if($response->Success==true){
-            return $response->Factura;
-        }else{
-            return $response;
-        }
+        
+        return $response;
+    }
+
+    public function setOrderAsInvoiced($amount, $type){
+        $endpoint = self::BASE_URL.'publicws/factura/incasare';
+
+        $data = array(
+            'CodUnic'            => self::CUI,
+            'Hash'               => $this->getHash(),
+            'Valuta'             => $this->currency,
+            'SerieFactura'       => $this->series,
+            'NumarFactura'       => $this->number,
+            'TipIncasare'        => $type,
+            'SumaIncasata'       => $amount,
+            'DataIncasare'       => self::getCurrentTime()
+        );
+        
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+
+        $context  = stream_context_create($options);
+        $response = file_get_contents($endpoint, false, $context);
+        $response = json_decode($response);
+
         return $response;
     }
     

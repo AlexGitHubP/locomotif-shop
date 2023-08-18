@@ -69,69 +69,76 @@
 
 <div class="content-container">
 	<div class='listing-element listing-header'>
-		<div class='listing-box flex01 alignCenter'>
+		<div class='listing-box'>
 			<p>ID</p>
 		</div>
-		<div class='listing-box flex02 alignCenter'>
+		<div class='listing-box'>
 			<p>Referință comandă</p>
 		</div>
-		<div class='listing-box flex04 alignCenter'>
+		<div class='listing-box'>
 			<p>Nume</p>
 		</div>
-        <div class='listing-box flex03 alignCenter'>
+        <div class='listing-box'>
 			<p>Metodă de plată</p>
 		</div>
-        <div class='listing-box flex03 alignCenter'>
+        <div class='listing-box'>
 			<p>Tip livrare</p>
 		</div>
-		<div class='listing-box flex03 alignCenter'>
+		<div class='listing-box'>
 			<p>Total</p>
 		</div>
-        <div class='listing-box flex03 alignCenter'>
+        <div class='listing-box'>
 			<p>Data comandă</p>
 		</div>
-		<div class='listing-box flex03 alignCenter'>
+		<div class='listing-box'>
 			<p>Status comandă</p>
 		</div>
-		<div class='listing-box flex02 alignCenter'>
+		<div class='listing-box'>
+			<p>Status plată</p>
+		</div>
+		<div class='listing-box'>
 			<p>Actiuni</p>
 		</div>
 	</div>
 	<div class='listing-elements-hold'>
 		@foreach($items as $key => $item)
 			<div class='listing-element {{ $loop->last ? 'lastElement' : '' }}'>
-				<div class='listing-box flex01 alignCenter'>
+				<div class='listing-box'>
 					<p>{{$key+1}}</p>
 				</div>
-				<div class='listing-box flex02 alignCenter'>
+				<div class='listing-box'>
 					<p><a href='/admin/orders/{{$item->id}}/edit'>{{ $item->reference }}</a></p>
 				</div>
 
-                <div class='listing-box flex04 alignCenter'>
+                <div class='listing-box'>
 					<p><a href='/admin/accounts/{{$item->user->account->id}}/edit'>{{ $item->user->account->name }} {{ $item->user->account->surname }}</a></p>
 				</div>
 				
-                <div class='listing-box flex03 alignCenter'>
+                <div class='listing-box'>
 					<p>{{$item->transactionProvider->name}}</p>
 				</div>
 
-                <div class='listing-box flex03 alignCenter'>
+                <div class='listing-box'>
 					<p>{{$item->carrier->name}}</p>
 				</div>
 
-                <div class='listing-box flex03 alignCenter'>
+                <div class='listing-box'>
 					<p>{{$item->total}}</p>
 				</div>
 
-				<div class='listing-box flex03 alignCenter'>
+				<div class='listing-box'>
 					<p>{{\Carbon\Carbon::parse($item->created_at)->format('Y-d-m')}}</p>
 				</div>
 
-				<div class='listing-box flex03 alignCenter'>
-					<span class='general-btn noPointer status-pending'>{{$item->currentStatus->status}}</span>
+				<div class='listing-box'>
+					<span class='general-btn noPointer status-{{$item->currentStatus->status}}'>{{$item->currentStatus->statusNice}}</span>
+				</div>
+				
+				<div class='listing-box'>
+					<span class='general-btn noPointer status-{{$item->transactionStatus}}'>{{$item->transactionStatusNice}}</span>
 				</div>
 
-				<div class='listing-box flex02 alignCenter'>
+				<div class='listing-box'>
 					<div class='more-actions-tab'>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 20">
 							<g id="More" transform="translate(4) rotate(90)">

@@ -39,13 +39,15 @@ class CheckFGOInvoiceStatus extends Command
                     'clientCompany'        => $order->invoice['invoice_number']
                 ];
                 $fgoInstance = new FgoApi($orderDetailsFgo);
-                $status = $fgoInstance->getStatus();
-                if(isset($status->Valoare) && !empty($status->Valoare)){
-                    $paid = self::checkIfPaid($status->Valoare, $status->ValoareAchitata);
+                $response    = $fgoInstance->getStatus();
+
+                if($response->Success){
+                    $paid = self::checkIfPaid($response->Factura->Valoare, $response->Factura->ValoareAchitata);
                     if($paid){
                         self::markInvoiceAsPaid($order->invoice['id'], 'fgo_invoiced', $order->paymentStatus);
                     }
                 }
+
                 sleep(1);
             }
         });
