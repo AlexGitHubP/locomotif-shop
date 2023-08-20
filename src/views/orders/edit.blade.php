@@ -18,6 +18,14 @@
 				</a>
 			</li>
             <li>
+				<a href="" data-target="designeri">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.1 16">
+						<path id="Text-2" data-name="Text" d="M5.2,2H11a.75.75,0,0,1,.53.22l4.35,4.35a.75.75,0,0,1,.22.53v8.7A2.222,2.222,0,0,1,13.9,18H5.2A2.222,2.222,0,0,1,3,15.8V4.2A2.222,2.222,0,0,1,5.2,2Zm0,1.5a.721.721,0,0,0-.7.7V15.8a.721.721,0,0,0,.7.7h8.7a.721.721,0,0,0,.7-.7V7.85H11a.75.75,0,0,1-.75-.75V3.5Zm6.55,1.061L13.539,6.35H11.75ZM5.9,7.825a.75.75,0,0,1,.75-.75H8.1a.75.75,0,0,1,0,1.5H6.65A.75.75,0,0,1,5.9,7.825Zm.75,2.15a.75.75,0,1,0,0,1.5h5.8a.75.75,0,1,0,0-1.5Zm0,2.9a.75.75,0,0,0,0,1.5h5.8a.75.75,0,0,0,0-1.5Z" transform="translate(-3 -2)" fill="#6C7A87" fill-rule="evenodd"/>
+					</svg> 
+					Designer asociat
+				</a>
+			</li>
+            <li>
 				<a href="" data-target="pay">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 						<path d="M9.665,2.079a.75.75,0,0,1,.671,0L17.585,5.7a.75.75,0,0,1,0,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,7.046a.75.75,0,0,1,0-1.342Zm-5.238,4.3L10,9.161l5.573-2.786L10,3.589ZM2.079,13.29a.75.75,0,0,1,1.006-.335L10,16.412l6.915-3.457a.75.75,0,0,1,.671,1.342l-7.25,3.625a.75.75,0,0,1-.671,0L2.415,14.3A.75.75,0,0,1,2.079,13.29Zm1.006-3.96a.75.75,0,0,0-.671,1.342L9.665,14.3a.75.75,0,0,0,.671,0l7.25-3.625a.75.75,0,0,0-.671-1.342L10,12.787Z" transform="translate(-2 -2)" fill="#6C7A87" fill-rule="evenodd"/>
@@ -204,6 +212,12 @@
 
 			</div>	
             
+            <div class="tab-pane" id="designeri">
+                    @foreach ($item->designers as $key => $designer)
+                        <p><a href='/admin/accounts/{{$designer->id}}/edit'>{{$designer->name}} {{$designer->surname}} {{$designer->email}}</a></p>
+                    @endforeach
+			</div>
+
             <div class="tab-pane" id="pay">
 				<div class="perfect-flex-hold">
                     <div class='perfect-left'>

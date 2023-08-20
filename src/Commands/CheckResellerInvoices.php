@@ -79,10 +79,10 @@ class CheckResellerInvoices extends Command
                 );
                 
                 $resellerInvoiceID = DB::table('reseller_invoices')->select('id')->where('designer_id', $designer->id)->where('month', now()->month)->where('year', now()->year)->first();
-                $lastDayofMonth    = self::checkIfIsLastDayOfMonth();
+                $lastDayofMonth    = checkIfIsLastDayOfMonth();
                 $invoicesArePaid   = self::checkIFRelatedInvoicesArePaid($designer->id);
 
-                if(!$lastDayofMonth){
+                if($lastDayofMonth){
                     if($invoicesArePaid){
                         self::sendNotificationForInvoice($resellerInvoices, $designer->email, $resellerInvoiceID->id);
                     }else{
@@ -111,30 +111,11 @@ class CheckResellerInvoices extends Command
         return (double)$subtotal;
     }
 
-    static function extractResellerPrice($total, $fee, $type){
-        $fee   = (double)$fee;
-        $total = (double)$total;
-
-        switch ($type) {
-            case 'percent':
-                $price = ($fee/100) * $total;
-                break;
-
-            case 'fixed':
-                $price = $tva;
-                break;
-            
-            default:
-                $price = ($tva/100) * $total;
-                break;
-        }
-
-        return $price;
-    }
+    
 
     static function calculateAmountToInvoice($subtotalForCurrentMonth){
         $shopFee = DB::table('shop_settings')->select('shop_fee', 'shop_fee_type')->where('id', 1)->first();
-        $amountToInvoice = self::extractResellerPrice($subtotalForCurrentMonth, $shopFee->shop_fee, $shopFee->shop_fee_type );
+        $amountToInvoice = extractResellerPrice($subtotalForCurrentMonth, $shopFee->shop_fee, $shopFee->shop_fee_type );
         
         return $amountToInvoice;
     }
@@ -157,19 +138,7 @@ class CheckResellerInvoices extends Command
         
     }
 
-    static function checkIfIsLastDayOfMonth(){
-        
-        $lastDayOfMonth = Carbon::now()->endOfMonth();
-        $today          = Carbon::now()->today();
-
-        $lastDayOfMonth = $lastDayOfMonth->format('Y-m-d');
-        $today          = $today->format('Y-m-d');
-
-        $isLastDay      = ($today==$lastDayOfMonth) ? true : false;
-        
-        return $isLastDay;
-        
-    }
+    
 
     static function sendNotificationForInvoice($invoiceData, $email, $resellerInvoiceID){
         $dataFactura = Carbon::now()->today()->format('F').' '.Carbon::now()->today()->format('Y');

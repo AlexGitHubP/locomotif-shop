@@ -10,6 +10,7 @@ use Locomotif\Media\Models\Media;
 use Locomotif\Shop\Models\Orders;
 use Locomotif\Shop\Models\OrdersTracking;
 use Locomotif\Shop\Models\FgoApi;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -115,7 +116,10 @@ class OrdersController extends Controller
                                ->with('transactions')
                                ->with('invoice')
                                ->find($order->id);
-                               
+        $designerIds = $currentOrder->orderItems->pluck('designer_id')->unique();
+        $designers = DB::table('accounts')->whereIn('id', $designerIds)->get();
+        $currentOrder->designers = $designers;
+
         $currentOrder->trackingHistory->map(function($history){
             $history->status = mapStatus($history->status);
         });
