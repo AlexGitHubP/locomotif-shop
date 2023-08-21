@@ -13,12 +13,14 @@ class CreateStripeCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('stripe_customers', function (Blueprint $table) {
+        Schema::create('stripe_infos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('userID')->index();
-            $table->string('stripeCustomerID', 225);
-            $table->string('stripeIntentID', 225);
-            $table->string('stripePayID', 225);
+            $table->string('stripeAccountID', 225)->nullable();
+            $table->string('stripeCustomerID', 225)->nullable();
+            $table->string('stripeIntentID', 225)->nullable();
+            $table->string('stripePayID', 225)->nullable();
+            $table->enum('type', ['customer', 'connect'])->default('customer');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateStripeCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('stripe_customers');
+        Schema::dropIfExists('stripe_infos');
     }
 }
